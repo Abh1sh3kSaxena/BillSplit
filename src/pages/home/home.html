@@ -8,20 +8,15 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-list>
-        
-          <ion-item>
-            <ion-label floating>Total Amount</ion-label>
-            <ion-input type="text"></ion-input>
-          </ion-item>
-        
-          <ion-item>
-            <ion-label floating>Total Tax</ion-label>
-            <ion-input type="password"></ion-input>
-          </ion-item>
-        
-        </ion-list>
-        <div padding>
-            <button block>Submit</button>
-          </div>
+  <div *ngFor="let user of userlist">
+    <ion-card>
+      <ion-item>
+        <h1>{{user.name}}</h1>
+        <h1>{{user.mobileNumber}}</h1>
+        <p>{{user.deviceAmount}}</p>
+        <p>{{user.taxAmount}}</p>
+        <p>{{user.total}}</p>
+      </ion-item>
+    </ion-card>
+  </div>
 </ion-content>
