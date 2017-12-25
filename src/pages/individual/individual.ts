@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Component, Input, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 /**
  * Generated class for the IndividualPage page.
  *
@@ -8,18 +7,36 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+
 @Component({
   selector: 'page-individual',
   templateUrl: 'individual.html',
 })
 export class IndividualPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad IndividualPage');
-  }
+  AddUser() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Which planets have you visited?');
 
+    alert.addInput(
+      {
+        type: 'text',
+        placeholder: 'Name'
+      }
+    );
+
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'Okay',
+      handler: data => {
+        console.log('Checkbox data:', data);
+        // this.testCheckboxOpen = false;
+        // this.testCheckboxResult = data;
+      }
+    });
+    alert.present();
+  }
 }

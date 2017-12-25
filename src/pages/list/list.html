@@ -3,21 +3,25 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>List</ion-title>
+    <ion-title>Enter Amount to Split ..</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-start></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-end>
-        {{item.note}}
-      </div>
-    </button>
+    <ion-item>
+      <ion-label>Total Charge</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Total Tax</ion-label>
+      <ion-input type="test"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Adjsutment Amount</ion-label>
+      <ion-input type="test"></ion-input>
+    </ion-item>
   </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
-</ion-content>
+  </ion-content>
