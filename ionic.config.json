@@ -1,6 +1,6 @@
 {
   "name": "MobileApp",
-  "app_id": "",
+  "app_id": "c83a4458",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

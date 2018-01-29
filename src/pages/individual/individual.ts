@@ -1,5 +1,7 @@
 import { Component, Input, ViewChild, ElementRef, Renderer } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { Toast } from '@ionic-native/toast';
 /**
  * Generated class for the IndividualPage page.
  *
@@ -13,30 +15,43 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
   templateUrl: 'individual.html',
 })
 export class IndividualPage {
+  data = { date:"", type:"", description:"", amount:0 };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
+    private sqlite: SQLite,
+    private toast: Toast)
+  {
   }
 
-  AddUser() {
-    let alert = this.alertCtrl.create();
-    alert.setTitle('Which planets have you visited?');
-
-    alert.addInput(
-      {
-        type: 'text',
-        placeholder: 'Name'
-      }
-    );
-
-    alert.addButton('Cancel');
-    alert.addButton({
-      text: 'Okay',
-      handler: data => {
-        console.log('Checkbox data:', data);
-        // this.testCheckboxOpen = false;
-        // this.testCheckboxResult = data;
-      }
+  saveData() {
+    this.sqlite.create({
+      name: 'ionicdb.db',
+      location: 'default'
+    }).then((db: SQLiteObject) => {
+      db.executeSql('INSERT INTO expense VALUES(NULL,?,?,?,?)',[this.data.date,this.data.type,this.data.description,this.data.amount])
+        .then(res => {
+          console.log(res);
+          this.toast.show('Data saved', '5000', 'center').subscribe(
+            toast => {
+              this.navCtrl.popToRoot();
+            }
+          );
+        })
+        .catch(e => {
+          console.log(e);
+          this.toast.show(e, '5000', 'center').subscribe(
+            toast => {
+              console.log(toast);
+            }
+          );
+        });
+    }).catch(e => {
+      console.log(e);
+      this.toast.show(e, '5000', 'center').subscribe(
+        toast => {
+          console.log(toast);
+        }
+      );
     });
-    alert.present();
   }
 }

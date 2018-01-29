@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import {IndividualPage} from '../pages/individual/individual';
+import { BackandService } from '@backand/angular2-sdk'
 
 @Component({
   templateUrl: 'app.html'
@@ -17,7 +18,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen , private backand:BackandService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -35,6 +36,13 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.backand.init({
+        appName: 'bill5plitter',
+        signUpToken: 'fc6f1585-e8b9-4636-ad32-e6e1796fd4a5',
+        anonymousToken: '8d974ed8-8b1c-4fee-b3d1-569f872c549f',
+        runSocket: true,
+        mobilePlatform: 'ionic'
+      });
     });
   }
 
